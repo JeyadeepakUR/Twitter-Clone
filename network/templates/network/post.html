@@ -1,0 +1,28 @@
+{% extends "network/layout.html" %}
+{% block body %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">{{ post.user.username }}</h2>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ post.content }}</p>
+            </div>
+            <div class="card-footer text-muted">
+                {% if user.is_authenticated %}
+                    {% if user == post.user %}
+                        <a href="{% url 'edit_post' post.id %}" class="btn btn-secondary">Edit</a>
+                    {% endif %}
+                    <a id="like-button" class="btn btn-primary" href="{% url 'like_post' post.id %}">
+                        {% if liked %}
+                            Unlike
+                        {% else %}
+                            Like
+                        {% endif %}
+                    </a>
+                    <span id="like-count" class="ml-3">{{ like_count }} Likes</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
